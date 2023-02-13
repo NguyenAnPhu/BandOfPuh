@@ -1,0 +1,7 @@
+@media(max-width: 739px) {
+    #slider,
+    #content,
+    #footer {
+        width: 928px;
+    }
+}
