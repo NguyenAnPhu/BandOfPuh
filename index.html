@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/responsive.css">
-    <link rel="icon" type="image/x-icon" href="/img/puhfav2.ico">
+    <link rel="icon" type="image/x-icon" href="img/puhfav2.ico">
     <link rel="stylesheet" href="./fonts/themify-icons/themify-icons.css">
     <title>BandOfPuh</title>
 </head>
@@ -18,11 +18,11 @@
         <div id="header">
 
             <ul id="nav">
-                <li><a href="">Home</a></li>
-                <li><a href="">Band</a></li>
-                <li><a href="">Tour</a></li>
-                <li><a href="">Contact</a></li>
-                <li><a href="">More
+                <li><a href="#">Home</a></li>
+                <li><a href="#slider">Band</a></li>
+                <li><a href="#content">Tour</a></li>
+                <li><a href="#content">Contact</a></li>
+                <li><a href="#">More
                     <i class="ti-angle-down"></i>
                 </a>
                     <ul class="subnav">
@@ -34,6 +34,9 @@
             </ul>
             <div class="search-btn">
                 <i class="search-icon ti-search"></i>
+            </div>
+            <div id="mobile-menu" class="mobile-menu-btn">
+                <i class="ti-menu"></i>
             </div>
 
         </div>
@@ -132,9 +135,9 @@
                             </p>
                         </div>
                         <div class="contact-info">
-                            <input type="text" class="info-name" placeholder="Name" style="width: 180px;">
-                            <input type="text"class="info-email" placeholder="Email"style="width: 180px;"> 
-                            <input type="text" class="info-message" placeholder="Message" style="width: 370px;">
+                            <input type="text" class="info-name" placeholder="Name" >
+                            <input type="text"class="info-email" placeholder="Email"> 
+                            <input type="text" class="info-message" placeholder="Message" >
                             <input class="place-buy-btn" id="contact-send" type="submit" value="SEND"></input>
                         </div>
                     </div>
@@ -174,13 +177,13 @@
                                         <p>
                                             <i class="ti-shopping-cart"></i> Ticket, $15 per person
                                         </p>
-                                        <input type="text" placeholder="How many?" style="width: 868px;" class="text">
+                                        <input type="text" placeholder="How many?" style="width: 100%;" class="text">
                                     </div>
                                     <div class="user-tickets">
                                         <p>
                                             <i class="ti-user"></i> Ticket, $15 per person
                                         </p>
-                                        <input type="text" placeholder="How many?" style="width: 868px;">
+                                        <input type="text" placeholder="How many?" style="width: 100%;">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -193,30 +196,65 @@
                             // Get the modal
                             var modal = document.getElementById("myModal");
 
-                            // Get the button that opens the modal
-                            var btn = document.getElementById("myBtn");
-
                             // Get the <span> element that closes the modal
                             var span = document.getElementsByClassName("close")[0];
 
-                            // When the user clicks the button, open the modal 
-                            btn.onclick = function() {
-                                modal.style.display = "block";
-                            }
+                            // Get the button that opens the modal
+                            var btn = document.querySelectorAll('#myBtn');
 
-                            // When the user clicks on <span> (x), close the modal
-                            span.onclick = function() {
-                                modal.style.display = "none";
-                            }
+                            console.log(btn);
 
-                            // When the user clicks anywhere outside of the modal, close it
-                            window.onclick = function(event) {
-                                if (event.target == modal) {
+                            for (var j = 0; j <= btn.length; j++) {
+                                var clickBtn = btn[j];
+                                // When the user clicks the button, open the modal 
+                                clickBtn.onclick = function() {
+                                        modal.style.display = "block";
+                                    }
+                                    // When the user clicks on <span> (x), close the modal
+                                span.onclick = function() {
                                     modal.style.display = "none";
+                                }
+
+                                // When the user clicks anywhere outside of the modal, close it
+                                window.onclick = function(event) {
+                                    if (event.target == modal) {
+                                        modal.style.display = "none";
+                                    }
                                 }
                             }
                         </script>
+                        <script>
+                            var header = document.getElementById('header');
+                            var mobileMenu = document.getElementById('mobile-menu');
+                            var headerHeight = header.clientHeight;
 
+                            //Đóng/ mở tùy chọn trên mobile
+                            mobileMenu.onclick = function() {
+                                    var isClosed = header.clientHeight === headerHeight;
+                                    if (isClosed) {
+                                        header.style.height = 'auto';
+                                    } else {
+                                        header.style = header.clientHeight === null
+                                    }
+                                }
+                                //Tự động đóng khi chọn menu
+                            var menuItems = document.querySelectorAll('#nav li a[href*="#"]');
+                            for (var i = 0; i < menuItems.length; i++) {
+                                var menuItem = menuItems[i];
+                                menuItem.onclick = function() {
+                                    var isParentMenu = this.nextElementSibling && this.nextElementSibling.classList.contains('subnav');
+
+                                    console.log(menuItem.nextElementSibling);
+
+                                    if (!isParentMenu) {
+                                        header.style.height = null;
+
+                                    } else {
+                                        event.preventDefault();
+                                    }
+                                }
+                            }
+                        </script>
 </body>
 
 </html>
